@@ -1,0 +1,87 @@
+<p-toast></p-toast>
+
+<p-card>
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+        <button pButton type="button" label="Adicionar Cliente" icon="pi pi-plus" class="p-button-success p-button-rounded" (click)="openDialog()"></button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+
+    </ng-template>
+  </p-toolbar>
+
+
+  <p-table
+  [value]="clientsList"
+  styleClass="p-datatable-striped"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+          <th>Nome</th>
+          <th>Cadastrado em</th>
+          <th>Projetos</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-client>
+      <tr>
+          <td>{{client.name}}</td>
+          <td>{{client.registeredDate | date: 'dd/MM/yyyy'}}</td>
+          <td>{{client.projects.length}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</p-card>
+
+
+<p-dialog
+  [(visible)]="showDialog"
+  [style]="{ width: '900px' }"
+  header="Adicionar Cliente"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-grid">
+      <div class="p-field p-col">
+        <label for="fieldId">Nome <span>*</span></label>
+        <input id="name" type="text" [(ngModel)]="client.name" [class]="submitted && !client.name ? 'p-invalid' : ''" pInputText>
+        <small class="p-invalid" *ngIf="submitted && !client.name">Nome obrigatório.</small>
+      </div>
+
+      <div class="p-field p-col">
+        <label for="fieldId">E-mail <span>*</span></label>
+        <input id="mail" type="email" [(ngModel)]="client.mail" [class]="submitted && !client.mail ? 'p-invalid' : ''" pInputText>
+        <small class="p-invalid" *ngIf="submitted && !client.mail">E-mail obrigatório.</small>
+      </div>
+    </div>
+
+    <div class="p-grid">
+      <div class="p-field p-col">
+        <label for="fieldId">Celular <span>*</span></label>
+        <input id="cellphone" type="text" [(ngModel)]="client.cellphone" [class]="submitted && !client.cellphone ? 'p-invalid' : ''" pInputText>
+        <small class="p-invalid" *ngIf="submitted && !client.cellphone">Celular obrigatório.</small>
+      </div>
+
+      <div class="p-field p-col">
+        <label for="fieldId">Telefone</label>
+        <input id="telephone" type="text" [(ngModel)]="client.telephone" pInputText>
+      </div>
+    </div>
+
+    <div class="p-grid">
+      <div class="p-field p-col-12">
+        <label for="address">Observações</label>
+        <textarea id="observations" type="text" rows="4" [(ngModel)]="client.observations" pInputTextarea></textarea>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveClient()"></button>
+  </ng-template>
+</p-dialog>
