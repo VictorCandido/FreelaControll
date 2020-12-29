@@ -7,17 +7,17 @@ export class ClientsService {
 
   private clients: Array<any> = [
     { name: 'Rodrigo', registeredDate: new Date(), mail: 'rodrigo@hotmail.com', cellphone: '(11) 99999-0000', projects: [
-      { description: 'ToDo List' },
-      { description: 'MakeMoney' }
+      { description: 'ToDo List', status: 'inprogress' },
+      { description: 'MakeMoney', status: 'finished' }
     ] },
     { name: 'Felipe', registeredDate: new Date(), mail: 'felipe@gmail.com', cellphone: '(19) 98778-0987', projects: [
-      { description: 'ProManager' }
+      { description: 'ProManager', status: 'finished' }
     ] },
     { name: 'Ana', registeredDate: new Date(), mail: 'ana@outlook.com', cellphone: '(11) 98776-4321', projects: [
-      { description: 'Easy Flow' }
+      { description: 'Easy Flow', status: 'inprogress' }
     ] },
     { name: 'Caio', registeredDate: new Date(), mail: 'caio@gmail.com', cellphone: '(11) 92345-1236', projects: [
-      { description: 'VetHome' },
+      { description: 'VetHome', status: 'canceled' },
     ] },
   ];
 

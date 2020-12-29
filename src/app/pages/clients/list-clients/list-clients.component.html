@@ -3,7 +3,7 @@
 <p-card>
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
-        <button pButton type="button" label="Adicionar Cliente" icon="pi pi-plus" class="p-button-success p-button-rounded" (click)="openDialog()"></button>
+        <button pButton type="button" label="Adicionar Cliente" icon="pi pi-plus" class="p-button-success p-button-rounded" (click)="openNewClientModal()"></button>
     </ng-template>
 
     <ng-template pTemplate="right">
@@ -29,16 +29,16 @@
 
     <ng-template pTemplate="body" let-client>
       <tr>
-          <td>{{client.name}}</td>
+          <td>{{ client.name }}</td>
           <td>{{ client.mail }}</td>
           <td>{{ client.cellphone }}</td>
-          <td>{{client.registeredDate | date: 'dd/MM/yyyy'}}</td>
-          <td>{{client.projects.length}}</td>
+          <td>{{ client.registeredDate | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ client.projects.length }}</td>
           <td>
             <!-- <button pButton pRipple type="button" icon="pi pi-user-plus" class="p-button-rounded p-button-help p-button-text"></button> -->
             <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-rounded p-button-info p-button-text"></button>
             <button pButton pRipple type="button" icon="pi pi-user-minus" class="p-button-rounded p-button-danger p-button-text"></button>
-            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text"></button>
+            <button pButton pRipple type="button" icon="pi pi-pencil" (click)="openEditClientModal(client)" class="p-button-rounded p-button-warning p-button-text"></button>
             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"></button>
           </td>
       </tr>
@@ -47,11 +47,11 @@
 
 </p-card>
 
-
+<!-- CLIENTS DIALOG -->
 <p-dialog
   [(visible)]="showDialog"
-  [style]="{ width: '900px' }"
-  header="Adicionar Cliente"
+  [style]="{ width: '1200px' }"
+  [header]="dialogTitle"
   [modal]="true"
   styleClass="p-fluid"
 >
@@ -89,6 +89,51 @@
         <textarea id="observations" type="text" rows="4" [(ngModel)]="client.observations" pInputTextarea></textarea>
       </div>
     </div>
+
+    <p-card header="Projetos">
+      <div class="p-grid">
+        <div class="p-col-12">
+          <p-toolbar>
+            <ng-template pTemplate="left">
+                <p-button label="Adicionar Projeto" icon="pi pi-plus" styleClass="p-button-sm p-button-success"></p-button>
+            </ng-template>
+
+            <ng-template pTemplate="right">
+
+            </ng-template>
+          </p-toolbar>
+        </div>
+
+        <div class="p-col-12">
+          <p-table
+            [value]="client.projects"
+            styleClass="p-datatable-striped"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                    <th>Descrição</th>
+                    <th>Cadastrado em</th>
+                    <th>Status</th>
+                    <th style="width: 15%;">Opções</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-project>
+                <tr>
+                    <td>{{project.description}}</td>
+                    <td>{{project.registeredDate | date: 'dd/MM/yyyy'}}</td>
+                    <td><span [class]="'project-badge status-' + (project.status)">{{project.status}}</span></td>
+
+                    <td>
+                      <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text"></button>
+                      <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"></button>
+                    </td>
+                </tr>
+              </ng-template>
+            </p-table>
+        </div>
+      </div>
+    </p-card>
 
   </ng-template>
 
