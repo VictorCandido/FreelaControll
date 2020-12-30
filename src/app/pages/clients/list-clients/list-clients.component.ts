@@ -12,16 +12,11 @@ export class ListClientsComponent implements OnInit {
 
   public clientsList: Array<any>;
 
-  public client = {
-    name: '',
-    mail: '',
-    cellphone: '',
-    telephone: '',
-    observations: ''
-  };
+  public client;
 
   public showDialog: boolean = false;
   public submitted: boolean = false;
+  public dialogTitle: String;
 
   constructor(
     private clientsService: ClientsService,
@@ -47,6 +42,24 @@ export class ListClientsComponent implements OnInit {
       this.hideDialog();
       this.messageService.add({severity:'success', summary:'Sucesso', detail:'Cliente adicionado com sucesso!'});
     }
+  }
+
+  public openNewClientModal(): void {
+    this.openDialog();
+    this.dialogTitle = 'Novo Cliente';
+    this.client = {
+      name: '',
+      mail: '',
+      cellphone: '',
+      telephone: '',
+      observations: ''
+    };
+  }
+
+  public openEditClientModal(selectedClient): void {
+    this.openDialog();
+    this.dialogTitle = 'Editar Cliente';
+    this.client = selectedClient;
   }
 
 }
